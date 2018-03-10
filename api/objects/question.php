@@ -11,6 +11,7 @@ class Question{
   public $questionType;
   public $questionText;
   public $comment;
+  public $answerOptions = array();
   public $createdDate;
   
   // Constructor with $db as database connection
@@ -28,19 +29,19 @@ class Question{
               ORDER BY ".$this->table_name.".id ASC";
     
     $this->surveyId = htmlspecialchars(strip_tags($this->surveyId));
-    
-    $stmt->bindParam(":surveyId", $this->surveyId);
-          
+
     // Prepare query statement
     $stmt = $this->conn->prepare($query);
     
+    $stmt->bindParam(":surveyId", $this->surveyId);
+              
     // Execute query
     $stmt->execute();
     
     return $stmt;
   }
 
-  // fetch a single survey
+  // fetch a single question
   function readOne(){
 
     $query = "SELECT ".$this->table_name.".*, questionTypes.typeName as questionType 

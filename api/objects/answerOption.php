@@ -24,10 +24,10 @@ class AnswerOption{
     
     $this->questionId = htmlspecialchars(strip_tags($this->questionId));
     
-    $stmt->bindParam(":questionId", $this->questionId)
-    
     // Prepare query statement
     $stmt = $this->conn->prepare($query);
+    
+    $stmt->bindParam(":questionId", $this->questionId);
     
     // Execute query
     $stmt->execute();
@@ -35,6 +35,32 @@ class AnswerOption{
     return $stmt;
   }
 
+  // fetch a single answerOption
+  function readOne(){
+
+    $query = "SELECT ".$this->table_name.".*
+              FROM ".$this->table_name."
+              WHERE ".$this->table_name.".id=?
+              LIMIT 0,1";
+
+      // prepare query statement
+      $stmt = $this->conn->prepare( $query );
+
+      // bind id of product to be updated
+      $stmt->bindParam(1, $this->id);
+
+      // execute query
+      $stmt->execute();
+
+      // get retrieved row
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      // set values to object properties
+      $this->questionId = $row['questionId'];
+      $this->answer = $row['answer'];
+      $this->createdDate = $row['createdDate'];
+  }
+  
   // create product
   function create(){
 

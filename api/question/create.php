@@ -12,6 +12,7 @@ include_once '../config/database.php';
 // instantiate product object
 include_once '../objects/question.php';
 include_once '../objects/questionType.php';
+include_once '../objects/answerOption.php';
  
 $database = new Database();
 $db = $database->getConnection();
@@ -36,14 +37,7 @@ $question->createdDate = date('Y-m-d H:i:s');
 if($question->create()){
   
   // create array
-  $survey_arr = array(
-    "id" => $question->id,
-    "questionType" => $question->questionTypeId,
-    "questionText" => html_entity_decode($question->questionText),
-    "comment" => html_entity_decode($question->comment),
-    "createdDate" => $question->createdDate,
-    "answerOptions" => array()
-  );
+  $answers_arr = array();
   foreach($data->answerOptions as $option){
     $answerOption->questionId = $question->id;
     $answerOption->answer = $option;
@@ -51,10 +45,18 @@ if($question->create()){
     
     if($answerOption->create()){
       //Do something, I don't know.
-      $question_arr->answerOptions->array_push($answerOption->answer);
+      array_push($answers_arr, $answerOption->answer);
     }
   }
-
+  
+  $question_arr = array(
+    "id" => $question->id,
+    "questionType" => $question->questionType,
+    "questionText" => $question->questionText,
+    "comment" => $question->comment,
+    "createdDate" => $question->createdDate,
+    "answerOptions" => $answers_arr
+  );
 
 
   // make it json format

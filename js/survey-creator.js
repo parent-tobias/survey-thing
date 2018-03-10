@@ -178,6 +178,7 @@ var surveyController = {
     this.survey.description = surveyForm.find("[name='description']").val() || null;
     this.survey.startDate = surveyForm.find("[name='startDate']").val() || null;
     this.survey.endDate = surveyForm.find("[name='endDate']").val() || null;
+    this.survey.questions = [];
 
     // This one will need to be wired to get the current user id!
     this.survey.userId = 1;
@@ -530,11 +531,13 @@ var surveyController = {
       }
     },
     saveQuestion: function(questionEl){
+      var that = this;
+      
       var question = {};
       question.surveyId = this.survey.id;
       question.questionText = questionEl.find(".question-el").val();
       question.comment = questionEl.find(".comment-el").val();
-      question.questionType = questionEl.find("[name^='qType']").val();
+      question.questionType = questionEl.find("[name^='qType']:checked").val();
       question.answerOptions = [];
 
       switch(true){
@@ -545,14 +548,14 @@ var surveyController = {
               question.answerOptions.push($(this).val());
             });
           break;
-        case (question.questionType == 1):
+        case (question.questionType == 2):
           questionEl
             .find("div.checkbox-answer-options input.answer-option[type='text']")
             .each(function(){
               question.answerOptions.push($(this).val());
             });          
           break;
-        case (question.questionType == 1):
+        case (question.questionType == 3):
           questionEl
             .find("div.text-answer-options input.answer-option[type='text']")
             .each(function(){
@@ -563,7 +566,33 @@ var surveyController = {
           console.log("How did you end up here?!");
           break;
       }
-      console.log(question);
+      /**
+       * At this point, the question object is everything we need to send via
+       *  our RESTful API. We can't send a JSON object, however; we need to
+       *  turn it to a string which the back end can convert BACK to a JSON
+       *  object.
+       **/
+      var myQuestion = JSON.stringify(question);
+
+      /****
+       * Fetch is again being used, so as not to tie up the rest of the application.
+       *  At this point, we are pinging the RESTful API we created to create a new
+       *  survey.
+       ****/
+      var saveQuestionPromise = fetch('/api/question/create.php', {
+        method: 'POST',
+        body: myQuestion
+      })
+      .then(function(response){
+        // When we  get a response, turn the string back to an object...
+        return response.json(); 
+      })
+      .then(function(returnedQuestionObject){
+        // ... we can push the returned question onto the survey itself.
+        question.id = returnedQuestionObject.id
+        that.survey.questions.push(question);
+        console.log(that.survey);
+      }).catch(function(err){ console.log(err)})
     },
     togglePreview: function(previewPane) {
       // This is what displays the preview versus the editable elements.
