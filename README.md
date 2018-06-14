@@ -33,7 +33,7 @@ Thus, our database tables are:
 * SurveyResponse
 * UserInfo
 
-The tables marked with (**) represent the one-to-one relationships. These are a deeper conversation, as to whether to use a table for this, or to simply represent that data as an ENUM on the first table. According to Chris Komlenic (3), the use of ENUM is poor design, and I tend to agree. However, we will implement each approach, simply to show how each would be used. The use of ENUM vs lookup tables is largely dependend, I think, on the expected scale of growth. For our purpose, either would work. So the Status will be represented as an enum, and the QuestionType will be a lookup table.
+The tables marked with (**) represent the one-to-one relationships. These are a deeper conversation, as to whether to use a table for this, or to simply represent that data as an ENUM on the first table. According to Chris Komlenic, the use of ENUM is poor design, and I tend to agree. However, we will implement each approach, simply to show how each would be used. The use of ENUM vs lookup tables is largely dependend, I think, on the expected scale of growth. For our purpose, either would work. So the Status will be represented as an enum, and the QuestionType will be a lookup table.
 
 Given those tables, and the interactions we’ve defined, we can define the tables themselves.
 
@@ -160,7 +160,7 @@ ourNameSpaceObject.Survey = {
 
 Thus we can see the data models being represented, and the relationship between them. In order to implement the back end controllers, we need to convert the JSON data coming from the client into the model instance, in order to interact with the database. Thus, our back end becomes a multi-layer entity: database to data model to API controllers.
 
-A great resource with a lot of information on this subject, and one I referenced repeatedly, is codeofninja -- his article listed in the citations below served as a strong springboard for this entire project. The only nit I could really pick with that article is that there are database calls (model-layer) in the API layer. Using his object encapsulation as a starting point, I moved the PDO references into the models themselves, and simply returned an object, or array of objects, or boolean. Doing this allows users to implement whatever database mechanism they like in the model layer, and so long as the return values are consistent, the whole thing will continue to work.
+A great resource with a lot of information on this subject, and one I referenced repeatedly, is codeofaninja.com -- his article listed in the citations below served as a strong springboard for this entire project. The only nit I could really pick with that article is that there are database calls (model-layer) in the API layer. Using his object encapsulation as a starting point, I moved the PDO references into the models themselves, and simply returned an object, or array of objects, or boolean. Doing this allows users to implement whatever database mechanism they like in the model layer, and so long as the return values are consistent, the whole thing will continue to work.
 
 ## The API Layer
 
