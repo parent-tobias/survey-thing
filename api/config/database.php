@@ -2,7 +2,7 @@
 class Database{
   // credentials
   private $host = "localhost";
-  private $db_name = "surveybuilder";
+  private $db_name = "nky";
   private $username = "root";
   private $password = "survey-madness";
   public $conn;

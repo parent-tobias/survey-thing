@@ -1,10 +1,5 @@
 <?php
-// required headers
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
  
 // get database connection
 include_once '../config/database.php';
@@ -13,60 +8,77 @@ include_once '../config/database.php';
 include_once '../objects/question.php';
 include_once '../objects/questionType.php';
 include_once '../objects/answerOption.php';
+include_once '../objects/user.php';
  
 $database = new Database();
 $db = $database->getConnection();
+$User = new User($db);
+
+// Let's check if we have a session going on. If we do, then we can
+//   create a User object, based off that session's email!
+session_start();
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true ) {
+  $User->email =  $_SESSION['email'];
+  $User->findByEmail();
+  
+} else {
+  echo json_encode(array("error"=>"session does not exist."));
+}
+
+// We have a valid session, let's go ahead and set up the headers, run
+//  the API as normal.
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
  
-$question = new Question($db);
-$questionType = new QuestionType($db);
-$answerOption = new AnswerOption($db);
+$Question = new Question($db);
+$QuestionType = new QuestionType($db);
+$AnswerOption = new AnswerOption($db);
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
  
 // set product property values
-$question->surveyId = $data->surveyId;
+$Question->SurveyID = $data->SurveyID;
 // Defaulting to text input if nothing is given
-$question->questionTypeId = isset($data->questionType) ? $data->questionType : 3;
-$question->questionText = isset($data->questionText) ? $data->questionText : "";
-$question->comment = isset($data->comment) ? $data->comment : "";
-$question->createdDate = date('Y-m-d H:i:s');
+$Question->QuestionTypeID = isset($data->QuestionType) ? $data->QuestionType : 3;
+$Question->Text = isset($data->QuestionText) ? $data->QuestionText : "";
+$Question->Comment = isset($data->Comment) ? $data->Comment : "";
  
 // create the product
-if($question->create()){
+if($Question->create()){
   
   // create array
-  $answers_arr = array();
-  foreach($data->answerOptions as $option){
-    $answerOption->questionId = $question->id;
-    $answerOption->answer = $option;
-    $answerOption->createdDate = date('Y-m-d H:i:s');
+  foreach($data->AnswerOptions as $option){
+    $AnswerOption->QuestionID = $Question->QuestionID;
+    $AnswerOption->answer = $option;
     
-    if($answerOption->create()){
-      //Do something, I don't know.
-      array_push($answers_arr, $answerOption->answer);
-    }
+    $AnswerOption->create();
   }
+  $AnswersArray = $AnswerOption->read();
   
-  $question_arr = array(
-    "id" => $question->id,
-    "questionType" => $question->questionType,
-    "questionText" => $question->questionText,
-    "comment" => $question->comment,
-    "createdDate" => $question->createdDate,
-    "answerOptions" => $answers_arr
+  $QuestionArray = array(
+    "QuestionID" => $Question->QuestionID,
+    "QuestionType" => $Question->QuestionTypeID,
+    "Text" => $Question->Text,
+    "Comment" => $Question->Comment,
+    "CreatedAt" => $Question->CreatedAt,
+    "AnswerChoices" => $AnswersArray
   );
 
 
   // make it json format
-  print_r(json_encode($question_arr));
+  print_r(json_encode($QuestionArray));
 }
  
 // if unable to create the product, tell the user
 else{
     echo '{';
-        echo '"message": "Unable to create product."';
+        echo '"message": "Unable to create Question."';
     echo '}';
 }
 ?>

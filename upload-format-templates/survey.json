@@ -1,0 +1,73 @@
+{
+  "Title":"Boxers, or briefs?",
+  "Description":"I don't even know. I'm tired, I'm feeling poorly, and I'm a wee bit fever delirious. Fun times here, I tell you what.",
+  "Questions":[
+    {
+      "Text":"Age range, as of this morning:",
+      "QuestionType":"Radio",
+      "Comment":"Before we begin, let us learn a bit about you.",
+      "AnswerChoices":[
+        { "answer":"18-30" },
+        { "answer":"31-40" },
+        { "answer":"41-50" },
+        { "answer":"51-60" },
+        { "answer":"61+" }
+      ]
+    },{
+      "Text":"Gender:",
+      "QuestionType":"Radio",
+      "Comment":"'Gender,' in this case, refers to your current actual physical gender. Not your psychological tendencies, nor your modus of dress, nor even your birth gender -- when you woke this morning, how were you physically wired?",
+      "AnswerChoices":[
+        { "answer":"Male" },
+        { "answer":"Female"},
+        { "answer":"Andro" },
+        { "answer":"Prefer not to say" }
+      ]
+    },{
+      "Text":"Boxers:",
+      "QuestionType":"Radio",
+      "Comment":"",
+      "AnswerChoices":[
+        { "answer":"Yes" },
+        { "answer":"No"}
+      ]
+    },{
+      "Text":"Briefs:",
+      "QuestionType":"Radio",
+      "Comment":"",
+      "AnswerChoices":[
+        { "answer":"Yes" },
+        { "answer":"No"}
+      ]
+    },{
+      "Text":"Speedos:",
+      "QuestionType":"Radio",
+      "Comment":"",
+      "AnswerChoices":[
+        { "answer":"Yes" },
+        { "answer":"No"},
+        { "answer":"Sometimes" }
+      ]
+    },{
+      "Text":"Commando:",
+      "QuestionType":"Radio",
+      "Comment":"",
+      "AnswerChoices":[
+        { "answer":"Always" },
+        { "answer":"Often"},
+        { "answer":"Sometimes" },
+        { "answer":"Rarely" },
+        { "answer": "Never" }
+      ]
+    },{
+      "Text":"Comments:",
+      "QuestionType":"Text",
+      "Comment":"Something to say?",
+      "AnswerChoices":[
+        { "answer":"Comment away!" }
+      ]
+    }
+  ],
+  "StartDate":"2018-03-28",
+  "EndDate":"2018-06-26"
+}

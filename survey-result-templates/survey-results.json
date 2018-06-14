@@ -1,0 +1,357 @@
+{
+  "SurveyResults": {
+    "Survey": {
+      "SurveyID": "147",
+      "Title": "I LIKE EGGS. Do YOU like eggs?",
+      "Description": "OK, I'm getting silly. Fun times here, I tell you what.",
+      "UserID": "14",
+      "User": {
+        "UserID": "14",
+        "firstname": "Toby",
+        "lastname": "Parent",
+        "email": "parent.tobias@gmail.com",
+        "password": null,
+        "CreatedAt": "2018-03-23 12:06:10"
+      },
+      "Questions": [{
+          "QuestionID": "143",
+          "SurveyID": "147",
+          "Text": "How many eggs did you have this morning:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "Before we begin, let us learn a bit about you.",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "96",
+              "QuestionID": "143",
+              "answer": "1-3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "97",
+              "QuestionID": "143",
+              "answer": "4-6",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "98",
+              "QuestionID": "143",
+              "answer": "5-7",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "99",
+              "QuestionID": "143",
+              "answer": "7+",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "144",
+          "SurveyID": "147",
+          "Text": "Preferred breakfast meat:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "There are many options...",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "100",
+              "QuestionID": "144",
+              "answer": "Bacon",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "101",
+              "QuestionID": "144",
+              "answer": "Ham",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "102",
+              "QuestionID": "144",
+              "answer": "Steak",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "103",
+              "QuestionID": "144",
+              "answer": "Fish",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "104",
+              "QuestionID": "144",
+              "answer": "Other",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "145",
+          "SurveyID": "147",
+          "Text": "Arduino:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "For the next FIVE questions, the radio buttons indicate a scale of 1 to 5, from MOST interested to LEAST.",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "105",
+              "QuestionID": "145",
+              "answer": "1",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "106",
+              "QuestionID": "145",
+              "answer": "2",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "107",
+              "QuestionID": "145",
+              "answer": "3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "108",
+              "QuestionID": "145",
+              "answer": "4",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "109",
+              "QuestionID": "145",
+              "answer": "5",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "146",
+          "SurveyID": "147",
+          "Text": "Netduino:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "110",
+              "QuestionID": "146",
+              "answer": "1",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "111",
+              "QuestionID": "146",
+              "answer": "2",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "112",
+              "QuestionID": "146",
+              "answer": "3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "113",
+              "QuestionID": "146",
+              "answer": "4",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "114",
+              "QuestionID": "146",
+              "answer": "5",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "147",
+          "SurveyID": "147",
+          "Text": "Raspberry PI:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "115",
+              "QuestionID": "147",
+              "answer": "1",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "116",
+              "QuestionID": "147",
+              "answer": "2",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "117",
+              "QuestionID": "147",
+              "answer": "3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "118",
+              "QuestionID": "147",
+              "answer": "4",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "119",
+              "QuestionID": "147",
+              "answer": "5",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "148",
+          "SurveyID": "147",
+          "Text": "BeagleBone:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "120",
+              "QuestionID": "148",
+              "answer": "1",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "121",
+              "QuestionID": "148",
+              "answer": "2",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "122",
+              "QuestionID": "148",
+              "answer": "3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "123",
+              "QuestionID": "148",
+              "answer": "4",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "124",
+              "QuestionID": "148",
+              "answer": "5",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "149",
+          "SurveyID": "147",
+          "Text": ".NET Gadgeteer:",
+          "QuestionTypeID": "1",
+          "QuestionType": "Radio",
+          "Comment": "",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "125",
+              "QuestionID": "149",
+              "answer": "1",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "126",
+              "QuestionID": "149",
+              "answer": "2",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "127",
+              "QuestionID": "149",
+              "answer": "3",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "128",
+              "QuestionID": "149",
+              "answer": "4",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }, {
+              "AnswerChoiceID": "129",
+              "QuestionID": "149",
+              "answer": "5",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }, {
+          "QuestionID": "150",
+          "SurveyID": "147",
+          "Text": "Comments:",
+          "QuestionTypeID": "3",
+          "QuestionType": "Text",
+          "Comment": "Something to say?",
+          "CreatedAt": "0000-00-00 00:00:00",
+          "AnswerChoices": [{
+              "AnswerChoiceID": "130",
+              "QuestionID": "150",
+              "answer": "Comment away!",
+              "CreatedAt": "0000-00-00 00:00:00"
+            }
+          ]
+        }
+      ],
+      "StartDate": "2018-03-28",
+      "EndDate": "2018-06-26",
+      "CreatedAt": "2018-03-27 16:03:20",
+      "Status": "editing"
+    },
+    "Responses": [{
+        "ResponseID": 3,
+        "User": {
+          "UserID": "14",
+          "firstname": "Toby",
+          "lastname": "Parent",
+          "email": "parent.tobias@gmail.com",
+          "password": null,
+          "CreatedAt": "2018-03-23 12:06:10"
+        },
+        "CompletedAt": "2018-03-27 13:29:44",
+        "ResponseStatus": "firstpass",
+        "Answers": [{
+            "AnswerChoiceId": 97,
+            "Comment": "foo bar baz"
+          }, {
+            "AnswerChoiceId": 102,
+            "Comment": "A nicely seasoned pile of steak tips... Aww, yeah!"
+          }, {
+            "AnswerChoiceId": 106,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 112,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 116,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 123,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 129,
+            "Comment": "foo bar baz"
+          }, {
+            "AnswerChoiceId": 130,
+            "Comment": "This was a completely silly, pointless survey. I feel I would like to regain the time I wasted on this."
+          }
+        ]
+      }, {
+        "ResponseID": 5,
+        "User": {
+          "UserID": "15",
+          "firstname": "test",
+          "lastname": "Test",
+          "email": "natasha.kydd28@gmail.com",
+          "password": null,
+          "CreatedAt": "2018-03-26 14:07:04"
+        },
+        "CompletedAt": "2018-03-28 12:14:07",
+        "ResponseStatus": "complete",
+        "Answers": [{
+            "AnswerChoiceId": 98,
+            "Comment": "Sunny-side up, please"
+          }, {
+            "AnswerChoiceId": 100,
+            "Comment": "Cos bacon goes with ANYTHING."
+          }, {
+            "AnswerChoiceId": 105,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 111,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 117,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 120,
+            "Comment": null
+          }, {
+            "AnswerChoiceId": 129,
+            "Comment": "foo bar baz"
+          }, {
+            "AnswerChoiceId": 130,
+            "Comment": "Great questions, concise. Yada yada yada."
+          }
+        ]
+      }
+    ]
+  }
+}

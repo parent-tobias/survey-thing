@@ -1,48 +1,64 @@
 <?php
-// required headers
-header("Access-Control-Allow-Origin: *");
-header("Content-type: application/json; charset=UTF-8");
-
+ 
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/survey.php';
+include_once '../objects/user.php';
 
-// Instantiate database and survey object
 $database = new Database();
 $db = $database->getConnection();
+ 
+$Survey = new Survey($db);
+$User = new User($db);
 
-// Initialize object
-$survey = new Survey($db);
+// Let's check if we have a session going on. If we do, then we can
+//   create a User object, based off that session's email!
+session_start();
 
-// query surveys
-$stmt = $survey->read();
-$num = $stmt->rowCount();
-
-// Do we have records?
-if ($num>0){
-  // Surveys array
-  $surveys_arr = array();
-  $surveys_arr["records"] = array();
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true ) {
+  $User->email =  $_SESSION['email'];
+  $User->findByEmail();
   
-  // Get out table contents
-  // fetch() is faster than fetchAll()
-  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    
-    extract($row);
-    $survey_item = array(
-      "id" => $id,
-      "title" => $title,
-      "description" => html_entity_decode($description),
-      "userId" => $userId,
-      "publisherName" => $publisher,
-      "startDate" => $startDate,
-      "endDate" => $endDate,
-      "createdDate" => $createdDate
-    );
-    array_push($surveys_arr["records"], $survey_item);
-  }
-  
-  echo json_encode($surveys_arr);
+} else {
+  echo json_encode(array("error"=>"session does not exist."));
+}
+
+// We have a valid session, let's go ahead and set up the headers, run
+//  the API as normal.
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
+
+// This is gonna be funky. We have a few different filters on the read
+//  that we can use.
+//  First, if we've been passed a UserID and a status, we can get
+//   an array of surveys for that. If only have a UserID, we can filter
+//   for that. If we have a Status ['editing','open','closed'], filter
+//   for THAT. Otherwise, just return EVERY survey.
+
+
+if (isset($_GET['User']) && $_GET['User'] == 'me'){
+  $_GET['UserID'] = $User->UserID;
+}
+
+if( isset($_GET['UserID']) && isset($_GET['Status']) ){
+  $Survey->UserID = $_GET['UserID'];
+  $Survey->Status = $_GET['Status'];
+  $SurveysArray = $Survey->readByUserAndStatus();
+} elseif(isset($_GET['UserID'])){
+  $Survey->UserID = $_GET['UserID'];
+  $SurveysArray = $Survey->readByUser();
+} elseif(isset($_GET['Status'])){
+  $Survey->Status = $_GET['Status'];
+  $SurveysArray = $Survey->readByStatus();
+} else {
+  $SurveysArray = $Survey->read();
+}
+
+if($SurveysArray){
+  echo json_encode($SurveysArray);
 } else {
   echo json_encode(
     array("message" => "No surveys found.")

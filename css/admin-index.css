@@ -1,0 +1,12 @@
+nav.admin-menu {
+  border-right: 1px solid silver;
+  z-index: 2;
+}
+nav.admin-menu a {
+  cursor: pointer;
+}
+nav.admin-menu li {
+  list-style-type: none;
+}
+div.container {
+}

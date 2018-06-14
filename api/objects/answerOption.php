@@ -1,14 +1,23 @@
 <?php
+/****
+ * AnswerOption class, v 0.2
+ *  Rewritten to support the nky database. Also, return values have
+ *   been changed -- rather than returning the database handle, we
+ *   take care of all database interaction here and return either
+ *   the AnswerOption instance populated with values, or we return
+ *   an array of AnswerOptions.
+ ****/
 class AnswerOption{
   // database connection and table name
   private $conn;
-  private $table_name = "answerOptions";
+  private $table_name = "AnswerChoices";
   
   // Object properties
-  public $id;
-  public $questionId;
+  public $AnswerChoiceID;
+  public $QuestionID;
   public $answer;
-  public $createdDate;
+  public $ResponseCount;
+  public $CreatedAt;
   
   // Constructor with $db as database connection
   public function __construct($db){
@@ -17,37 +26,61 @@ class AnswerOption{
   
   function read(){
     // Select all related to a given question query
-    $query = "SELECT ".$this->table_name.".*
+    $query = "SELECT ".$this->table_name.".*, COUNT(Answer.AnswerID) AS ResponseCount
               FROM ".$this->table_name."
-              WHERE questionId = :questionId 
-              ORDER BY ".$this->table_name.".id ASC";
+              LEFT JOIN Answer 
+              ON ".$this->table_name.".AnswerChoiceID = Answer.AnswerChoiceID
+              WHERE QuestionID = :QuestionID 
+              GROUP BY ".$this->table_name.".AnswerChoiceID
+              ORDER BY ".$this->table_name.".AnswerChoiceID ASC";
     
-    $this->questionId = htmlspecialchars(strip_tags($this->questionId));
+    $this->QuestionID = htmlspecialchars(strip_tags($this->QuestionID));
     
     // Prepare query statement
     $stmt = $this->conn->prepare($query);
     
-    $stmt->bindParam(":questionId", $this->questionId);
+    $stmt->bindParam(":QuestionID", $this->QuestionID);
     
     // Execute query
     $stmt->execute();
+    $num = $stmt->rowCount();
     
-    return $stmt;
+    $AnswerChoicesArray = array();
+    if($num>0) {
+      // Get out table contents
+      // fetch() is faster than fetchAll()
+      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+        extract($row);
+        $AnswerChoiceItem = array(
+          "AnswerChoiceID" => $AnswerChoiceID,
+          "QuestionID" => $QuestionID,
+          "answer" => html_entity_decode($answer),
+          "ResponseCount" => $ResponseCount,
+          "CreatedAt" => $CreatedAt
+        );
+        $AnswerChoicesArray[] = $AnswerChoiceItem;
+      }
+
+     }
+   return $AnswerChoicesArray;
   }
 
   // fetch a single answerOption
   function readOne(){
 
-    $query = "SELECT ".$this->table_name.".*
+    $query = "SELECT ".$this->table_name.".*, COUNT(Answer.AnswerID) AS ResponseCount
               FROM ".$this->table_name."
-              WHERE ".$this->table_name.".id=?
+              JOIN Answer 
+              ON ".$this->table_name.".AnswerChoiceID = Answer.AnswerChoiceID
+              WHERE ".$this->table_name.".AnswerChoiceID=?
               LIMIT 0,1";
 
       // prepare query statement
       $stmt = $this->conn->prepare( $query );
 
       // bind id of product to be updated
-      $stmt->bindParam(1, $this->id);
+      $stmt->bindParam(1, $this->AnswerChoiceID);
 
       // execute query
       $stmt->execute();
@@ -56,9 +89,10 @@ class AnswerOption{
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
       // set values to object properties
-      $this->questionId = $row['questionId'];
+      $this->QuestionID = $row['QuestionID'];
       $this->answer = $row['answer'];
-      $this->createdDate = $row['createdDate'];
+      $this->ResponseCount = $row['ResponseCount'];
+      $this->CreatedAt = $row['CreatedAt'];
   }
   
   // create product
@@ -68,26 +102,26 @@ class AnswerOption{
       $query = "INSERT INTO
                   " . $this->table_name . "
               SET
-                  questionId=:questionId,
+                  QuestionId=:QuestionID,
                   answer=:answer,
-                  createdDate=:createdDate";
+                  CreatedAt=:CreatedAt";
 
       // prepare query
       $stmt = $this->conn->prepare($query);
 
       // sanitize
-      $this->questionId=htmlspecialchars(strip_tags($this->questionId));
+      $this->QuestionID=htmlspecialchars(strip_tags($this->QuestionID));
       $this->answer=htmlspecialchars(strip_tags($this->answer));
-      $this->createdDate=htmlspecialchars(strip_tags($this->createdDate));
+      $this->CreatedAt=htmlspecialchars(strip_tags($this->CreatedAt));
 
       // bind values
-      $stmt->bindParam(':questionId', $this->questionId);
+      $stmt->bindParam(':QuestionID', $this->QuestionID);
       $stmt->bindParam(':answer', $this->answer);
-      $stmt->bindParam(':createdDate', $this->createdDate);
+      $stmt->bindParam(':CreatedAt', $this->CreatedAt);
 
       // execute query
       if($stmt->execute()){
-        $this->id = $this->conn->lastInsertId();
+        $this->AnswerChoiceID = $this->conn->lastInsertId();
         $this->readOne();
         return true;
       }
@@ -103,26 +137,26 @@ class AnswerOption{
       $query = "UPDATE
                   " . $this->table_name . "
               SET
-                  questionId=:questionId,
+                  QuestionID=:QuestionID,
                   answer=:answer,
-                  createdDate=:createdDate
+                  CreatedAt=:CreatedAt
               WHERE
-                  id=:id";
+                  AnswerChoiceID=:AnswerChoiceID";
 
       // prepare query
       $stmt = $this->conn->prepare($query);
 
       // sanitize
-      $this->questionId=htmlspecialchars(strip_tags($this->questionId));
+      $this->QuestionID=htmlspecialchars(strip_tags($this->QuestionID));
       $this->answer=htmlspecialchars(strip_tags($this->answer));
-      $this->createdDate=htmlspecialchars(strip_tags($this->createdDate));
+      $this->CreatedAt=htmlspecialchars(strip_tags($this->CreatedAt));
 
       // bind values
-      $stmt->bindParam(':questionId', $this->questionId);
+      $stmt->bindParam(':QuestionID', $this->QuestionID);
       $stmt->bindParam(':answer', $this->answer);
-      $stmt->bindParam(':createdDate', $this->createdDate);
+      $stmt->bindParam(':CreatedAt', $this->CreatedAt);
    
-      $stmt->bindParam(':id', $this->id);
+      $stmt->bindParam(':AnswerChoiceID', $this->AnswerChoiceID);
 
       // execute the query
       if($stmt->execute()){
@@ -130,6 +164,22 @@ class AnswerOption{
       }
 
       return false;
+  }
+  
+  function delete(){
+    // Remove all rows associated with a given question from the
+    //   answer choices table.
+    $query = "DELETE FROM " . $this->table_name . " WHERE QuestionID=:QuestionID;";
+    //Prepare the query
+    $stmt = $this->conn->prepare($query);
+    
+    $stmt->bindParam(":QuestionID", $this->QuestionID);
+    
+    if($stmt->execute()){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 ?>
